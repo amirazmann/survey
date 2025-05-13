@@ -8,7 +8,7 @@ export default function HomePage() {
   
   return (
     <Layout showHistoryButton={true}>
-      <main className="bg-background rounded-xl shadow-lg p-12 w-full max-w-3xl flex flex-col items-center">
+      <main className="bg-background rounded-xl shadow-lg p-10 w-full max-w-3xl flex flex-col items-center">
         <div className="bg-primary/10 rounded-full p-4 mb-4">
           <img src={logo} alt="Gardenia Logo" />
         </div>

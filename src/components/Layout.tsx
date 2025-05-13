@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import gardenia from '../assets/gardenia.svg';
+import logo from '../assets/logo.svg';
+
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -14,14 +16,17 @@ export default function Layout({ children, showHistoryButton = false }: LayoutPr
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-background">
       <header className="w-full max-w-xl flex items-center justify-between mb-8">
         <img src={gardenia} alt="Gardenia" />
-        {showHistoryButton && (
+        {showHistoryButton ? (
           <button
             onClick={() => navigate('/history')}
             className="bg-primary text-background font-semibold px-4 py-2 rounded-lg shadow hover:bg-secondary"
           >
             View History
           </button>
-        )}
+        ) : (       
+          <div className="bg-primary/10 rounded-full">
+            <img src={logo} alt="Gardenia Logo" />
+          </div>)}
       </header>
       {children}
       <footer className="w-full max-w-xl flex flex-col items-center mt-8">
