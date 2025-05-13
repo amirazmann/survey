@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import api from "../config/axios";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
@@ -62,6 +63,7 @@ export default function HistoryPage() {
       })
       .catch((err) => {
         console.error("Error:", err);
+        toast.error(err.message);
       });
   }, []);
 

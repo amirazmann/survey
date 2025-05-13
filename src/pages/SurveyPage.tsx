@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Layout from "../components/Layout";
 import ProgressBar from "../components/ProgressBar";
 import api from "../config/axios";
@@ -25,6 +26,7 @@ export default function SurveyPage() {
       })
       .catch((err) => {
         console.error("Error:", err);
+        toast.error(err.message);
       });
   }, []);
 
@@ -32,8 +34,6 @@ export default function SurveyPage() {
     const newAnswers = [...answers];
     newAnswers[current] = e.target.value;
     setAnswers(newAnswers);
-      console.log("Updated Answers:", newAnswers);
-
   };
 
   const handleNext = () => {
@@ -52,22 +52,23 @@ export default function SurveyPage() {
     }
   };
 
-const handleSubmit = () => {
-  const payload = questions.map((q, index) => ({
-    surveyQuestionId: q.id,
-    answer: answers[index],
-  }));
+  const handleSubmit = () => {
+    const payload = questions.map((q, index) => ({
+      surveyQuestionId: q.id,
+      answer: answers[index],
+    }));
 
-  api
-    .post("/api/SurveyAnswers", payload)
-    .then((response) => {
-      navigate("/history");
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-};
-
+    api
+      .post("/api/SurveyAnswers", payload)
+      .then((response) => {
+        toast.success("Survey has been submitted!");
+        navigate("/history");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        toast.error(error.message);
+      });
+  };
 
   const isLastQuestion = current === questions.length - 1;
 
